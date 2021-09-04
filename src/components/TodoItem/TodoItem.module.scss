@@ -1,0 +1,13 @@
+.todo {
+    &_done {
+        text-decoration: line-through;
+    }
+
+    &_item {
+        width: 300px;
+        border: 3px rgb(194, 190, 206) solid;
+        margin: 0 auto;
+        margin-top: 15px;
+        font-size: 22px;
+    }
+}
