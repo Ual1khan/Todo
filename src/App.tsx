@@ -1,24 +1,30 @@
-import React, { useState } from 'react';
-import './App.scss';
-import TodoItem from './components/TodoItem/TodoItem';
-import { Todo } from './shared/todo';
+import React, {useState} from "react";
+import TodoList from "./components/TodoList/TodoList";
+import TodoModal from "./components/TodoModal/TodoModal";
+import TodoStatistics from "./components/TodoStatistics/TodoStatistics";
+import { TodoProvider } from "./contexts/todo.context";
 
-const todos: Todo[] = [
-  {id: '1', text: 'Todo 1', done:false},
-  {id: '2', text: 'Todo 2', done:false},
-  {id: '3', text: 'Todo 3', done:false},
-  {id: '4', text: 'Todo 4', done:false},
-  {id: '5', text: 'Todo 5', done:false},
-];
+import styles from "./App.module.scss";
 
 function App() {
-  const [todoList, setTodoList] = useState(todos);
+  const [modal, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(true);
+  }
 
   return (
     <div className="App">
-      {
-        todoList.map((todo) => (<TodoItem key={todo.id} todo={todo} />))
-      }
+      <button onClick={openModal}>Open</button>
+      <TodoModal modal={modal} setModal={setModal}>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo, molestias! Praesentium illum aliquam minima earum? Itaque ea tempora maiores quam nulla. Facilis unde, dignissimos possimus dolor magnam quo amet deserunt?</p>
+      </TodoModal>
+      <TodoProvider>
+        <div className={styles.wrap}>
+          <TodoStatistics />
+          <TodoList />
+        </div>
+      </TodoProvider>
     </div>
   );
 }

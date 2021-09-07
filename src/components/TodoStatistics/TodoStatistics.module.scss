@@ -1,0 +1,24 @@
+.statistics_wrap {
+    margin: 56px 32px 0 0;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .number {
+    font-size: 20px;
+    margin-top: 15px;
+    &_total {
+      color: rgb(87, 135, 255);
+    }
+  
+    &_done {
+      color: rgb(37, 238, 37);
+    }
+  
+    &_changes {
+      color:rgb(242, 144, 40);
+    }
+  }
+  

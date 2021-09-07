@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
-import {Todo} from '../../shared/todo';
+import React, { useContext } from "react";
+import { Todo } from "../../shared/todo";
 
-import styles from './TodoItem.module.scss';
+import TodoContext from "../../contexts/todo.context";
+import styles from "./TodoItem.module.scss";
 
-interface Props{
-    todo: Todo;
+interface Props {
+  todo: Todo;
 }
 
-const TodoItem: React.FunctionComponent<Props> = (props:Props) => {
-    const {todo} = props
-    const [todoItem, setTodoItem] = useState(todo);
-    const onCheck = () => { 
-        setTodoItem({...todoItem, done : !todoItem.done});
-    };
+const TodoItem: React.FunctionComponent<Props> = (props: Props) => {
+  const { todo } = props;
 
-    return <div className={`${todoItem.done ? styles.todo_done : null} ${styles.todo_item}`}><input checked={todoItem.done} onChange={onCheck} type="checkbox" />{todoItem.text}</div>
-}
+  const { toggleDone } = useContext(TodoContext);
+
+  // useEffect(() => {
+  //   console.log("Effect");
+  // });
+
+  return (
+    <div className={styles.card} onClick={() => toggleDone(todo.id)}>
+      <input
+        readOnly
+        checked={todo.done}
+        className={styles.checkbox}
+        type="checkbox"
+      />
+      <div className={styles.text}>{todo.text}</div>
+    </div>
+  );
+};
 
 export default TodoItem;
