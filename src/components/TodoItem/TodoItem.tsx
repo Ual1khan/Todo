@@ -13,10 +13,6 @@ const TodoItem: React.FunctionComponent<Props> = (props: Props) => {
 
   const { toggleDone } = useContext(TodoContext);
 
-  // useEffect(() => {
-  //   console.log("Effect");
-  // });
-
   return (
     <div className={styles.card} onClick={() => toggleDone(todo.id)}>
       <input

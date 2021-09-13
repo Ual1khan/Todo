@@ -4,25 +4,49 @@ import styles from "./TodoModal.module.scss";
 
 interface Props {
     modal: boolean,
-    setModal: (item: boolean) => void;
-    children: JSX.Element;
+    onClose: () => void;
+    children?: React.ReactNode;
+    title?: string;
+    actions?: {
+        cancel?: {
+        text: string;
+        onCancel: () => void;
+        };
+        submit?: {
+        text: string;
+        onSubmit: () => void;
+        };
+    };
 }
 
 
-const TodoModal: FC<Props> = ({modal, setModal, children} : Props) => {
+const TodoModal: FC<Props> = ({modal, onClose, children, title, actions} : Props) => {
 
-    const closeModal = () => {
-        setModal(false);
-    };
+
     
     return (
         <>
             {
                 modal ? 
-                <div onClick={closeModal} className={styles.modal} >
+                <div onClick={onClose} className={styles.modal} >
                     <div onClick={(e) => e.stopPropagation()} className={styles.modal_content}>
-                        <span onClick={closeModal} className={styles.close}>&times;</span>
+                        <span onClick={onClose} className={styles.close}>&times;</span>
+                        {title}
                         {children}
+                        {actions && (
+                            <div className={styles.actions}>
+                                {actions.cancel && (
+                                <button className={styles.actions_button} onClick={actions.cancel.onCancel}>
+                                    {actions.cancel.text}
+                                </button>
+                                )}
+                                {actions.submit && (
+                                <button className={styles.actions_button} onClick={actions.submit.onSubmit}>
+                                    {actions.submit.text}
+                                </button>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div> : null
             }

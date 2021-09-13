@@ -23,6 +23,7 @@ const TodoContext = createContext({
   list: initialTodos,
   statistics: { total: 0, doneCount: 0, changes: 0 },
   toggleDone: (id: string) => {},
+  addTodo: (todo: Todo) => {},
 });
 
 export const TodoProvider = ({ children }: Props) => {
@@ -44,6 +45,12 @@ export const TodoProvider = ({ children }: Props) => {
     setList(newTodos);
   };
 
+  const addTodo = (todo: Todo) => {
+    const newTodos = [...list, todo];
+    console.log('adtododoo');
+    setList(newTodos);
+  };
+
   useEffect(() => {
     const changes = statistics.changes + 1;
     const doneCount = list.reduce(
@@ -56,7 +63,7 @@ export const TodoProvider = ({ children }: Props) => {
   }, [list]);
 
   return (
-    <TodoContext.Provider value={{ list, statistics, toggleDone }}>
+    <TodoContext.Provider value={{ list, statistics, toggleDone, addTodo }}>
       {children}
     </TodoContext.Provider>
   );
