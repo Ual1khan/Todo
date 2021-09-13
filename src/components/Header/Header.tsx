@@ -23,7 +23,9 @@ const Header = (props: Props) => {
   } = useModal();
 
   const onSubmit = () => {
-    todo ? addTodo({ id: uuidv4(), text: todo, done: false }) : alert('Wrong input');
+    const regExp = /^(?!\s*$).+[A-Za-z]/;
+    regExp.test(todo) ? addTodo({ id: uuidv4(), text: todo, done: false }) 
+    : alert('Please fill the valid title');
     setTodo('');
     onAddModalClose();
   };
@@ -56,7 +58,14 @@ const Header = (props: Props) => {
         >
           <form>
             <label className={styles.todo_label} htmlFor="todo">Todo: </label>
-            <input id="todo" type="text" value={todo} onChange={onChangeTodo} placeholder="add todo" required />
+            <input 
+                id="todo" 
+                type="text" 
+                value={todo} 
+                onChange={onChangeTodo} 
+                placeholder="add todo" 
+                required 
+            />
           </form>
         </TodoModal>
     </header>
