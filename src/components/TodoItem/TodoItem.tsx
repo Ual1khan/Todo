@@ -11,17 +11,41 @@ interface Props {
 const TodoItem: React.FunctionComponent<Props> = (props: Props) => {
   const { todo } = props;
 
-  const { toggleDone } = useContext(TodoContext);
+  const { toggleDone, setEditId, deleteTodo } = useContext(TodoContext);
+
+  const onEditClick = () => {
+    setEditId(todo.id);
+  };
+
+  const onDelete = () => {
+    deleteTodo(todo);
+  }
 
   return (
-    <div className={styles.card} onClick={() => toggleDone(todo.id)}>
-      <input
-        readOnly
-        checked={todo.done}
-        className={styles.checkbox}
-        type="checkbox"
-      />
-      <div className={styles.text}>{todo.text}</div>
+    <div className={styles.card}>
+      <div>
+        <input
+          readOnly
+          checked={todo.done}
+          className={styles.checkbox}
+          type="checkbox"
+        />
+        <div className={styles.text}>
+          <span
+            onClick={() => toggleDone(todo.id)}
+            className={styles.text_checkbox}
+          ></span>
+          {todo.text}
+        </div>
+      </div>
+      <div>
+        <button className={styles.btn_edit} onClick={onEditClick}>
+          Edit
+        </button>
+        <button className={styles.btn_delete} onClick={onDelete}>
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

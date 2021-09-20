@@ -1,34 +1,35 @@
 .card {
-    width: 400px;
-    padding: 16px 8px;
-    position: relative;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #f1f1f1;
-    }
+  width: 400px;
+  padding: 16px 8px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover {
+    background-color: #f1f1f1;
   }
-  
-  .text {
-    display: flex;
-    align-items: center;
-  
-    &::before {
-      content: "";
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 1px solid #ccc;
-      background-color: #fff;
-      border-radius: 4px;
-      margin-right: 8px;
-    }
-  
+}
+
+.text {
+  display: flex;
+  align-items: center;
+
+  .text_checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-right: 8px;
+
     &::after {
       content: "";
       position: absolute;
       left: 15px;
-      top: 19px;
+      top: 18px;
       width: 5px;
       height: 10px;
       border: solid #999;
@@ -37,19 +38,46 @@
       display: none;
     }
   }
-  
-  .checkbox {
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
-  
-    &:checked + .text {
-      text-decoration: line-through;
-  
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+
+  &:checked + .text {
+    text-decoration: line-through;
+
+    .text_checkbox {
       &::after {
         display: block;
       }
     }
   }
-  
+}
+
+.btn {
+  &_edit {
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    background-color: #008CBA;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  &_delete {
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    background-color: #f44336;
+    cursor: pointer;
+  }
+
+}

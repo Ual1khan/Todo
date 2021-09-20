@@ -21,13 +21,18 @@ const initialTodos: Todo[] = [
 
 const TodoContext = createContext({
   list: initialTodos,
+  editId: "",
+  setEditId: (id: string) => {},
   statistics: { total: 0, doneCount: 0, changes: 0 },
   toggleDone: (id: string) => {},
   addTodo: (todo: Todo) => {},
+  editTodo: (todo: Todo) => {},
+  deleteTodo: (todo: Todo) => {}
 });
 
 export const TodoProvider = ({ children }: Props) => {
   const [list, setList] = useState<Todo[]>(initialTodos);
+  const [editId, setEditId] = useState<string>("");
   const [statistics, setStatistics] = useState<Statistics>({
     total: list.length,
     doneCount: 0,
@@ -47,9 +52,23 @@ export const TodoProvider = ({ children }: Props) => {
 
   const addTodo = (todo: Todo) => {
     const newTodos = [...list, todo];
-    console.log('adtododoo');
     setList(newTodos);
   };
+
+  const editTodo = (todo: Todo) => {
+    const newTodos = [...list].map((el) => {
+      if (el.id === todo.id) {
+        return todo;
+      }
+      return el;
+    });
+    setList(newTodos);
+  };
+
+  const deleteTodo = (todo: Todo) => {
+    const newTodos = [...list].filter(task => task.id !== todo.id);
+    setList(newTodos);
+  }
 
   useEffect(() => {
     const changes = statistics.changes + 1;
@@ -60,10 +79,22 @@ export const TodoProvider = ({ children }: Props) => {
     const newStat: Statistics = { total: list.length, doneCount, changes };
 
     setStatistics(newStat);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
 
   return (
-    <TodoContext.Provider value={{ list, statistics, toggleDone, addTodo }}>
+    <TodoContext.Provider
+      value={{
+        list,
+        statistics,
+        editId,
+        setEditId,
+        toggleDone,
+        addTodo,
+        editTodo,
+        deleteTodo
+      }}
+    >
       {children}
     </TodoContext.Provider>
   );

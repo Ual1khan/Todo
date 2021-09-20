@@ -1,0 +1,41 @@
+.switch {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    cursor: pointer;
+  
+    .slider {
+      display: inline-block;
+      width: 30px;
+      height: 20px;
+      background-color: #ccc;
+      border-radius: 10px;
+      margin-right: 4px;
+      position: relative;
+      transition: 0.2s;
+  
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: #fff;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        transition: 0.2s;
+      }
+    }
+  
+    &.done {
+      .slider {
+        background-color: #2fa52f;
+  
+        &::before {
+          left: calc(100% - 17px);
+        }
+      }
+    }
+  }
+  
